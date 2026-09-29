@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe & Drink Finder</title>
+    <!-- Load Bootstrap CSS for easy layout styling -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="bg-light">
+
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Meal & Drink Finder</h1>
+        
+        <!-- DISPLAY ERROR MESSAGE IF ONE EXISTS -->
+        <% if (error) { %>
+            <div class="alert alert-danger text-center">
+                <%= error %>
+            </div>
+        <% } %>
+
+        <!-- SEARCH FORM CARD -->
+        <div class="card p-4 shadow-sm mx-auto" style="max-width: 500px;">
+            <form action="/search" method="POST">
+                
+                <!-- OPTION 1: Search by dish name -->
+                <div class="mb-3">
+                    <label for="mealName" class="form-label">Search by Meal Name:</label>
+                    <input type="text" class="form-control" id="mealName" name="mealName" placeholder="e.g. Pizza, Pasta, Chicken">
+                </div>
+
+                <p class="text-center fw-bold">-- OR --</p>
+
+                <!-- OPTION 2: Filter by category (Bonus) -->
+                <div class="mb-3">
+                    <label for="category" class="form-label">Filter by Category:</label>
+                    <select class="form-select" id="category" name="category">
+                        <option value="all">-- Choose a Category --</option>
+                        
+                        <!-- Loop through the categories array passed from app.js -->
+                        <% for (let i = 0; i < categories.length; i++) { %>
+                            <option value="<%= categories[i].strCategory %>">
+                                <%= categories[i].strCategory %>
+                            </option>
+                        <% } %>
+
+                    </select>
+                </div>
+
+                <!-- SUBMIT BUTTON -->
+                <button type="submit" class="btn btn-primary w-100">Find Meal & Drink</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
